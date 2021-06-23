@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text} from 'react-native'
 
-const OrderDelivery = () => {
+const OrderDelivery = ( { navigation }) => {
   return (
     <View>
       <Text>Order Delivery</Text>

@@ -20,34 +20,33 @@ const Restaurant = ({ route, navigation }) => {
     let orderList = orderItems.slice()
     let item = orderList.filter(a => a.menuId == menuId)
 
-    if(action == "+") {
-      if(item.length > 0){
-        let newQty = item[0].qty + 1
-        item[0].qty = newQty
-        item[0].total = item[0].qty * price
-      }else{
-        const newItem ={
-          menuId: menuId,
-          qty: 1,
-          price: price,
-          total: price
-        }
-        orderList.push(newItem)
-      }
-
-      setOrderItems(orderList)
-    }else {
-      if (item.length >0) {
-        if(item[0]?.qty > 0) {
-          let newQty = item[0].qty - 1
+    if (action == "+") {
+      if (item.length > 0) {
+          let newQty = item[0].qty + 1
           item[0].qty = newQty
-          item[0].total = newQty * price
-        }
+          item[0].total = item[0].qty * price
+      } else {
+          const newItem = {
+              menuId: menuId,
+              qty: 1,
+              price: price,
+              total: price
+          }
+          orderList.push(newItem)
       }
+
       setOrderItems(orderList)
+    } else {
+      if (item.length > 0) {
+          if (item[0]?.qty > 0) {
+              let newQty = item[0].qty - 1
+              item[0].qty = newQty
+              item[0].total = newQty * price
+          }
+      }
 
+      setOrderItems(orderList)
     }
-
   }
 
   function getOrderQty(menuId){
@@ -67,7 +66,7 @@ const Restaurant = ({ route, navigation }) => {
   }
 
   function sumOrder(){
-    let total = orderItems.reduce((a, b) => a + (b.qty || 0), 0)
+    let total = orderItems.reduce((a, b) => a + (b.total || 0), 0)
 
     return total.toFixed(2)
   }
